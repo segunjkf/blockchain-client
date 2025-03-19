@@ -142,8 +142,6 @@ To make this application production-ready, the following enhancements could be i
 ### Security Enhancements
 
 1. **API Authentication and Authorization**
-   - Implement JWT-based authentication
-   - Add role-based access control
    - Rate limiting to prevent abuse
 
 2. **HTTPS Support**
@@ -163,7 +161,7 @@ To make this application production-ready, the following enhancements could be i
    - Health checks for RPC endpoints
 
 2. **Monitoring and Observability**
-   - Implement comprehensive logging with structured logs
+   - Implement comprehensive logging with structured logs, scarpe with logging agent and send to platfrom like Grafana loki. 
    - Set up monitoring with Prometheus and Grafana
    - Create dashboards for key metrics (request latency, error rates)
    - Configure alerts for critical issues
