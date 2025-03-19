@@ -188,18 +188,6 @@ To make this application production-ready, the following enhancements could be i
    - Perform regular load testing to identify bottlenecks
    - Optimize based on findings
 
-### Additional Features
-
-1. **Extended API Endpoints**
-   - Support for additional JSON-RPC methods
-   - Batch requests for multiple blocks
-   - Transaction filtering and search
-   - Web3 compatibility layer
-
-2. **Metrics and Analytics**
-   - Track blockchain statistics over time
-   - Generate reports on chain activity
-   - Alert on abnormal chain behavior
 
 ### CI/CD Pipeline
 
