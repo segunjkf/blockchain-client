@@ -1,7 +1,5 @@
 
 
-
-# Create a VPC for our application
 resource "aws_vpc" "blockchain_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -12,7 +10,6 @@ resource "aws_vpc" "blockchain_vpc" {
   }
 }
 
-# Create public subnets
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.blockchain_vpc.id
   cidr_block              = "10.0.1.0/24"
@@ -35,7 +32,6 @@ resource "aws_subnet" "public_subnet_2" {
   }
 }
 
-# Create an internet gateway
 resource "aws_internet_gateway" "blockchain_igw" {
   vpc_id = aws_vpc.blockchain_vpc.id
 
@@ -44,7 +40,6 @@ resource "aws_internet_gateway" "blockchain_igw" {
   }
 }
 
-# Create a route table
 resource "aws_route_table" "blockchain_rtb" {
   vpc_id = aws_vpc.blockchain_vpc.id
 
@@ -58,7 +53,6 @@ resource "aws_route_table" "blockchain_rtb" {
   }
 }
 
-# Associate route table with subnets
 resource "aws_route_table_association" "rtb_assoc_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.blockchain_rtb.id
@@ -69,7 +63,6 @@ resource "aws_route_table_association" "rtb_assoc_2" {
   route_table_id = aws_route_table.blockchain_rtb.id
 }
 
-# Create a security group for the ALB
 resource "aws_security_group" "alb_sg" {
   name        = "blockchain-alb-sg"
   description = "Security group for blockchain ALB"
@@ -94,7 +87,6 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
-# Create a security group for the ECS tasks
 resource "aws_security_group" "ecs_tasks_sg" {
   name        = "blockchain-ecs-tasks-sg"
   description = "Security group for blockchain ECS tasks"
@@ -119,7 +111,6 @@ resource "aws_security_group" "ecs_tasks_sg" {
   }
 }
 
-# Create an Application Load Balancer
 resource "aws_lb" "blockchain_alb" {
   name               = "blockchain-alb"
   internal           = false
@@ -132,7 +123,6 @@ resource "aws_lb" "blockchain_alb" {
   }
 }
 
-# Create a target group for the ALB
 resource "aws_lb_target_group" "blockchain_tg" {
   name        = "blockchain-target-group"
   port        = 8080
@@ -151,7 +141,6 @@ resource "aws_lb_target_group" "blockchain_tg" {
   }
 }
 
-# Create a listener for the ALB
 resource "aws_lb_listener" "blockchain_listener" {
   load_balancer_arn = aws_lb.blockchain_alb.arn
   port              = 80
@@ -163,7 +152,6 @@ resource "aws_lb_listener" "blockchain_listener" {
   }
 }
 
-# Create an ECS cluster
 resource "aws_ecs_cluster" "blockchain_cluster" {
   name = "blockchain-cluster"
 
@@ -173,7 +161,6 @@ resource "aws_ecs_cluster" "blockchain_cluster" {
   }
 }
 
-# Create an IAM role for the ECS task execution
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "blockchain-ecs-task-execution-role"
 
@@ -191,19 +178,16 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
-# Attach the ECS task execution policy to the role
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-  # Create a CloudWatch log group
 resource "aws_cloudwatch_log_group" "blockchain_logs" {
   name              = "/ecs/blockchain-client"
   retention_in_days = 30
 }
 
-# Create an ECS task definition
 resource "aws_ecs_task_definition" "blockchain_task" {
   family                   = "blockchain-client"
   network_mode             = "awsvpc"
@@ -215,7 +199,7 @@ resource "aws_ecs_task_definition" "blockchain_task" {
   container_definitions = jsonencode([
     {
       name      = "blockchain-client"
-      image     = "segjkf/blockchain-client:latest"
+      image     = "kaytheog/blockchain-client:latest"
       essential = true
       portMappings = [
         {

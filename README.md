@@ -85,19 +85,33 @@ Example response:
 ### Get block by number
 
 ```bash
-curl http://localhost:8080/api/block/0x134e82a
+curl http://localhost:8080/api/block/30000
 ```
 
 Example response:
 ```json
-{
+
   "jsonrpc": "2.0",
   "result": {
-    "number": "0x134e82a",
-    "hash": "0x...",
-    "parentHash": "0x...",
-    ...
-    "transactions": [...]
+    "difficulty": "0x7",
+    "extraData": "0xd58301090083626f7286676f312e3133856c696e757800000000000000000000a0cbdedf08fef9afe203a5c7e51a0dafb338a79588449216b9bdad543c83134944110b1b6e2112096a6b43b2cac1d50ed18ef97e0351624d36a2bf1eaa1b9efe00",
+    "gasLimit": "0x1312d00",
+    "gasUsed": "0x0",
+    "hash": "0xdf7e8995b8f7d3b80ee36007622ee9c1438837ebef9bc6f4c73583f00b7d1dde",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "miner": "0x0000000000000000000000000000000000000000",
+    "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "nonce": "0x0000000000000000",
+    "number": "0x7530",
+    "parentHash": "0xcfdcfbc8a6fbf5840168fc4acff559ca6d419737eec4a2dcfae8181c92116866",
+    "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+    "size": "0x261",
+    "stateRoot": "0x1f37a8f688f30f6713aad6755d22c8aeccc277dc1930d91d6312d720ad3b93c4",
+    "timestamp": "0x5ed37bb6",
+    "transactions": [],
+    "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    "uncles": []
   },
   "id": 2
 }
@@ -190,7 +204,7 @@ To make this application production-ready, the following enhancements could be i
 ### CI/CD Pipeline
 
 1. **Continuous Integration**
-   - Add GitHub Actions or GitLab CI for automated testing
+   - Add GitHub Actions automated testing
    - Implement code quality checks (linting, static analysis)
    - Security scanning for dependencies
 
@@ -198,26 +212,3 @@ To make this application production-ready, the following enhancements could be i
    - Automated deployments to staging and production
    - Blue/green or canary deployment strategies
    - Automated rollbacks if issues are detected
-
-### Operational Enhancements
-
-1. **Documentation**
-   - Comprehensive API documentation with Swagger/OpenAPI
-   - Runbooks for common operational tasks
-   - Incident response procedures
-
-2. **Health Checks**
-   - More thorough health checks including RPC endpoint checks
-   - Graceful shutdown handling
-
-3. **Infrastructure as Code**
-   - Complete infrastructure defined in Terraform or CloudFormation
-   - Immutable infrastructure patterns
-
-4. **Disaster Recovery**
-   - Cross-region replication for disaster recovery
-   - Regular DR drills
-
-## License
-
-MIT

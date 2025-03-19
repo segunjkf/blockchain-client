@@ -11,10 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Default RPC endpoint
 const defaultRpcURL = "https://polygon-rpc.com/"
 
-// JSON-RPC request structure
 type JSONRPCRequest struct {
 	JSONRPC string        `json:"jsonrpc"`
 	Method  string        `json:"method"`
@@ -30,7 +28,6 @@ type JSONRPCResponse struct {
 	ID      int         `json:"id"`
 }
 
-// BlockchainClient represents our client for interacting with the blockchain
 type BlockchainClient struct {
 	rpcURL string
 }
@@ -94,13 +91,11 @@ func (bc *BlockchainClient) sendRequest(request JSONRPCRequest) (*JSONRPCRespons
 }
 
 func main() {
-	// Get RPC URL from environment or use default
 	rpcURL := os.Getenv("RPC_URL")
 	if rpcURL == "" {
 		rpcURL = defaultRpcURL
 	}
 
-	// Set default port or use environment variable
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
