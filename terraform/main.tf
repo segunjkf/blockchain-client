@@ -131,7 +131,7 @@ resource "aws_lb_target_group" "blockchain_tg" {
   target_type = "ip"
 
   health_check {
-    path                = "/blocks"
+    path                = "/health"
     port                = "traffic-port"
     healthy_threshold   = 3
     unhealthy_threshold = 3
